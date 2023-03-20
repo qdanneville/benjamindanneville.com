@@ -5,7 +5,7 @@ export default function ServiceList({ services }) {
     return (
         <>
             {
-                services.map(service => <p>{service.title}</p>)
+                services.map((service, index) => <p key={index}>{service.title}</p>)
             }
         </>
     )
