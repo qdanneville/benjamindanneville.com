@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { getFolderContent } from '../lib/api';
 
-import ServiceList from '../components/services/ServiceList'
+import ServiceList from '@/components/services/ServiceList';
 
 export default function Home({ introduction, services }) {
-  
+
   const introductionPost = introduction[0]
-  
+
   return (
     <>
       <Head>
@@ -15,7 +15,7 @@ export default function Home({ introduction, services }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='flex items-center justify-center w-screen h-screen bg-gray-900'>
+      <main className='flex items-center justify-center w-screen h-screen bg-gray-900 flex-col w-full'>
         <div className="flex items-center w-1/3">
           <article className='text-white pr-8'>
             <h1 className='text-2xl font-medium underline'>{introductionPost.title}</h1>
@@ -25,19 +25,19 @@ export default function Home({ introduction, services }) {
             <div className="w-40 h-40 rounded-full bg-gray-800"></div>
           </aside>
         </div>
-        {/* <ServiceList services={services} />  */}
+        <ServiceList services={services} />
       </main>
     </>
   )
 }
 
 export const getStaticProps = async () => {
-  const introduction = getFolderContent('introduction',[
+  const introduction = getFolderContent('introduction', [
     'title',
     'excerpt',
   ])
 
-  const services = getFolderContent('services',[
+  const services = getFolderContent('home/services', [
     'title',
     'excerpt',
   ])
