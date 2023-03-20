@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { getAllPosts } from '../lib/api';
+import { getFolderContent } from '../lib/api';
 
 export default function Home({ allPosts }) {
   
@@ -31,7 +31,7 @@ export default function Home({ allPosts }) {
 }
 
 export const getStaticProps = async () => {
-  const allPosts = getAllPosts([
+  const allPosts = getFolderContent('services/test',[
     'title',
     'excerpt',
   ])

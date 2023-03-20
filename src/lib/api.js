@@ -2,15 +2,15 @@ import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
 
-const postsDirectory = join(process.cwd(), '_posts')
+let currentDirectory = ''
 
 export function getPostSlugs() {
-    return fs.readdirSync(postsDirectory)
+    return fs.readdirSync(currentDirectory)
 }
 
 export function getPostBySlug(slug, fields) {
     const realSlug = slug.replace(/\.md$/, '')
-    const fullPath = join(postsDirectory, `${realSlug}.md`)
+    const fullPath = join(currentDirectory, `${realSlug}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
 
@@ -25,7 +25,8 @@ export function getPostBySlug(slug, fields) {
     return items
 }
 
-export function getAllPosts(fields) {
+export function getFolderContent(dirName, fields) {
+    currentDirectory = join(process.cwd(), `_contents/${dirName}`)
     const slugs = getPostSlugs()
     const posts = slugs
         .map((slug) => getPostBySlug(slug, fields))
